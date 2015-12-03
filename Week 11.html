@@ -3,7 +3,7 @@
 <head>
 
 <meta charset="utf-8" />
-<title>Week 5</title>
+<title>Week 11</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -179,16 +179,16 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Overview">Overview<a class="anchor-link" href="#Overview">&#182;</a></h1><ul>
 <li>Hour 1<ul>
-<li>Nested Loops</li>
-<li>Strings</li>
+<li>JSON</li>
+<li>Regular Expressions</li>
 </ul>
 </li>
 <li>Hour 2<ul>
-<li>Functions</li>
+<li>Q&amp;A</li>
 </ul>
 </li>
 <li>Hour 3<ul>
-<li>Graded Lab</li>
+<li>Work Time</li>
 </ul>
 </li>
 </ul>
@@ -201,28 +201,400 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Nested-Loop">Nested Loop<a class="anchor-link" href="#Nested-Loop">&#182;</a></h1><ul>
-<li>We can have loops inside of loops</li>
-</ul>
+<h1 id="JSON-Format">JSON Format<a class="anchor-link" href="#JSON-Format">&#182;</a></h1><p>Strings can be further arranged, so they can encode more complex information. For example, CSV (Comma-Separated Values) can be used to share spreadsheet data between applications.</p>
+<p>JSON (Javascript Object Notation) is used to transmit ordered lists (arrays) and name-
+value pairs (objects). It can be sent in a file or through a web request.</p>
+<h2 id="Syntax">Syntax<a class="anchor-link" href="#Syntax">&#182;</a></h2><p>The syntax for a JSON array is similar to the syntax for a Python list.</p>
+
+<pre><code>["Monday",  6, "pumpkin", 3.1415]</code></pre>
+<p>The quotation marks around strings are mandatory.</p>
+<p>The syntax for a JSON objecgts is similar to the syntax for Python dictionaries.</p>
+
+<pre><code>`
+        {
+           "latitude_degree": 43.6617, 
+           "latitude_direction": "N",
+           "longitude_degree": 79.3950, 
+           "longitude_direction": "W"
+        }</code></pre>
+<p>Arrays and objects can appear as values within arrays and objects. Here is an example of a complex JSON string, formatted for readability by humans.</p>
+
+<pre><code>[
+ {
+  "customer": {
+   "last": "Ball", 
+   "first": "Maldonado"
+  }, 
+  "rating": 2, 
+  "specialOrder": true, 
+  "tags": [
+   "ullamco", 
+   "aute", 
+   "mollit", 
+   "ex"
+  ], 
+  "greeting": "Happy Birthday", 
+  "filling": "chocolate", 
+  "batter": "vanilla", 
+  "frosting": "chocolate"
+ }
+]</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As you can see, it’s a customer dictionary with a nested dictionary for the address and a list of dictionaries for telephone numbers. The formatting is similar to Python.</p>
+<p>An useful tool when working with JSON is a viewer. JSON that is being transmitted usually has all of the whitespace removed. It makes the total transmission smaller, but difficult for humans to read. It’s common to use a JSON viewer, in your IDE or on a web page. You can find one by Googling.</p>
+<p>Another common tool is a JSON validator. It checks whether your syntax is correct and helps to
+localize errors. Sometimes you can use the same tool to view and validate JSON.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Writing-JSON">Writing JSON<a class="anchor-link" href="#Writing-JSON">&#182;</a></h1><p>Any Python data structure can be saved as JSON.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[57]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># This program displays a rectangular pattern of asterisks</span>
+<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">json</span>
 
-<span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">height</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Monday&quot;</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="s">&quot;pumpkin&quot;</span><span class="p">,</span> <span class="mf">3.1415</span><span class="p">]</span>
+<span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span>
+           <span class="s">&quot;latitude_degree&quot;</span><span class="p">:</span> <span class="mf">43.6617</span><span class="p">,</span> 
+           <span class="s">&quot;latitude_direction&quot;</span><span class="p">:</span> <span class="s">&quot;N&quot;</span><span class="p">,</span>
+           <span class="s">&quot;longitude_degree&quot;</span><span class="p">:</span> <span class="mf">79.3950</span><span class="p">,</span> 
+           <span class="s">&quot;longitude_direction&quot;</span><span class="p">:</span> <span class="s">&quot;W&quot;</span>
+        <span class="p">}</span>
 
-<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">),</span>    
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
 
+<span class="n">json_encoded</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dict1</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">json_encoded</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&quot;latitude_direction&quot;: &quot;N&quot;, &quot;longitude_degree&quot;: 79.395, &quot;latitude_degree&quot;: 43.6617, &quot;longitude_direction&quot;: &quot;W&quot;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Reading-JSON">Reading JSON<a class="anchor-link" href="#Reading-JSON">&#182;</a></h1><p>There are Python functions for encoding and decoding JSON into data structures.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;cake.json&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_reader</span><span class="p">:</span>
+    <span class="n">file_contents</span> <span class="o">=</span> <span class="n">file_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    
+<span class="n">json_contents</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">file_contents</span><span class="p">)</span>
+
+<span class="c"># print json_contents</span>
+<span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_contents</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Ball&quot;, 
+   &quot;first&quot;: &quot;Maldonado&quot;
+  }, 
+  &quot;rating&quot;: 2, 
+  &quot;specialOrder&quot;: true, 
+  &quot;tags&quot;: [
+   &quot;ullamco&quot;, 
+   &quot;aute&quot;, 
+   &quot;mollit&quot;, 
+   &quot;ex&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Happy Birthday&quot;, 
+  &quot;filling&quot;: &quot;chocolate&quot;, 
+  &quot;batter&quot;: &quot;vanilla&quot;, 
+  &quot;frosting&quot;: &quot;chocolate&quot;
+ }, 
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Gallegos&quot;, 
+   &quot;first&quot;: &quot;Priscilla&quot;
+  }, 
+  &quot;rating&quot;: 4, 
+  &quot;specialOrder&quot;: true, 
+  &quot;tags&quot;: [
+   &quot;occaecat&quot;, 
+   &quot;ullamco&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Happy Halloween&quot;, 
+  &quot;filling&quot;: &quot;cream cheese&quot;, 
+  &quot;batter&quot;: &quot;vanilla&quot;, 
+  &quot;frosting&quot;: &quot;cream cheese&quot;, 
+  &quot;_id&quot;: &quot;544dbb15755bad877f163ce6&quot;
+ }, 
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Dunlap&quot;, 
+   &quot;first&quot;: &quot;Lydia&quot;
+  }, 
+  &quot;rating&quot;: 2, 
+  &quot;specialOrder&quot;: false, 
+  &quot;tags&quot;: [
+   &quot;reprehenderit&quot;, 
+   &quot;sunt&quot;, 
+   &quot;officia&quot;, 
+   &quot;velit&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Congratulations&quot;, 
+  &quot;filling&quot;: &quot;vanilla&quot;, 
+  &quot;batter&quot;: &quot;chocolate&quot;, 
+  &quot;frosting&quot;: &quot;vanilla&quot;, 
+  &quot;_id&quot;: &quot;544dbb15f27aff34b75532f4&quot;
+ }, 
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Barron&quot;, 
+   &quot;first&quot;: &quot;Adeline&quot;
+  }, 
+  &quot;rating&quot;: 0, 
+  &quot;specialOrder&quot;: true, 
+  &quot;tags&quot;: [
+   &quot;consectetur&quot;, 
+   &quot;consectetur&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Happy Birthday&quot;, 
+  &quot;filling&quot;: &quot;cream cheese&quot;, 
+  &quot;batter&quot;: &quot;vanilla&quot;, 
+  &quot;frosting&quot;: &quot;chocolate&quot;, 
+  &quot;_id&quot;: &quot;544dbb1544b3ca9c14246ff6&quot;
+ }, 
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Meyers&quot;, 
+   &quot;first&quot;: &quot;Conley&quot;
+  }, 
+  &quot;rating&quot;: 4, 
+  &quot;specialOrder&quot;: false, 
+  &quot;tags&quot;: [
+   &quot;cillum&quot;, 
+   &quot;ea&quot;, 
+   &quot;duis&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Congratulations&quot;, 
+  &quot;filling&quot;: &quot;custard&quot;, 
+  &quot;batter&quot;: &quot;vanilla&quot;, 
+  &quot;frosting&quot;: &quot;vanilla&quot;, 
+  &quot;_id&quot;: &quot;544dbb15ac1eba4a44347dcf&quot;
+ }, 
+ {
+  &quot;customer&quot;: {
+   &quot;last&quot;: &quot;Armstrong&quot;, 
+   &quot;first&quot;: &quot;Peterson&quot;
+  }, 
+  &quot;rating&quot;: 1, 
+  &quot;specialOrder&quot;: true, 
+  &quot;tags&quot;: [
+   &quot;adipisicing&quot;, 
+   &quot;sit&quot;, 
+   &quot;mollit&quot;, 
+   &quot;anim&quot;
+  ], 
+  &quot;greeting&quot;: &quot;Congratulations&quot;, 
+  &quot;filling&quot;: &quot;cream cheese&quot;, 
+  &quot;batter&quot;: &quot;carrot&quot;, 
+  &quot;frosting&quot;: &quot;chocolate&quot;, 
+  &quot;_id&quot;: &quot;544dbb15a350974cd50f19e7&quot;
+ }
+]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>json_contents</code> is typically list, a dictionary, or a combination. You already know how to use these. You can use a for to iterate over all the elements in a list. You can use dictionary syntax to access key value pairs.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">json_contents</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Customer: &quot;</span> <span class="o">+</span> <span class="n">order</span><span class="p">[</span><span class="s">&#39;customer&#39;</span><span class="p">][</span><span class="s">&#39;last&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">order</span><span class="p">[</span><span class="s">&#39;tags&#39;</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">word</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Customer: Ball
+	ullamco
+	aute
+	mollit
+	ex
+Customer: Gallegos
+	occaecat
+	ullamco
+Customer: Dunlap
+	reprehenderit
+	sunt
+	officia
+	velit
+Customer: Barron
+	consectetur
+	consectetur
+Customer: Meyers
+	cillum
+	ea
+	duis
+Customer: Armstrong
+	adipisicing
+	sit
+	mollit
+	anim
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Regular-Expressions">Regular Expressions<a class="anchor-link" href="#Regular-Expressions">&#182;</a></h1><p>Regular expressions, called regexes for short, are descriptions for a pattern of text. These are useful for validating inputs and formatting.</p>
+<p>For example, a <code>\d</code> in a regex stands for a digit character—that is, any single numeral 0 to 9. The regex <code>\d\d\d-\d\d\d-\d\d\d\d</code> is used by Python to match a telephone number as a string of three numbers, a hyphen, three more numbers, another hyphen, and four numbers. Any other string would not match the <code>\d\d\d-\d\d\d-\d\d\d\d</code> regex.</p>
+<p>But regular expressions can be much more sophisticated. For example, adding a 3 in curly brackets (<code>{3}</code>) after a pattern is like saying, “Match this pattern three times.” So the slightly shorter regex <code>\d{3}-\d{3}-\d{4}</code> also matches the correct phone number format.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Resources">Resources<a class="anchor-link" href="#Resources">&#182;</a></h1><ul>
+<li><a href="https://automatetheboringstuff.com/chapter7/">Chapter 7</a> of "Automate the Boring Stuff with Python: Practical Programming for Total Beginners" by Al Sweigart. </li>
+<li><a href="https://developers.google.com/edu/python/regular-expressions?hl=en">Python Regular Expressions</a> by Google for Education</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Creating-Regex-Objects">Creating Regex Objects<a class="anchor-link" href="#Creating-Regex-Objects">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">phone_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;\d\d\d-\d\d\d-\d\d\d\d&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Matching-Regex-Objects">Matching Regex Objects<a class="anchor-link" href="#Matching-Regex-Objects">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">phone_match</span> <span class="o">=</span> <span class="n">phone_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;My number is 647-970-9425.&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">phone_match</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;No match found&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Phone number found: &#39;</span> <span class="o">+</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
     
 </pre></div>
 
@@ -236,88 +608,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>* * 
-* * 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># This program displays a triangle pattern of asterisks</span>
-<span class="c"># *</span>
-<span class="c"># * *</span>
-<span class="c"># * * *</span>
-
-<span class="n">height</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">),</span>    
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>* * * * * 
-* * * * * 
-* * * * * 
-* * * * * 
-* * * * * 
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">height</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;*&quot;</span> <span class="o">*</span> <span class="p">(</span><span class="n">h</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>   
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>*
-**
-***
-****
-*****
-******
-*******
-********
-*********
-**********
+<pre>Phone number found: 647-970-9425
 </pre>
 </div>
 </div>
@@ -331,162 +622,22 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Strings-Operations">Strings Operations<a class="anchor-link" href="#Strings-Operations">&#182;</a></h1><ul>
-<li>Strings are a sequence of characters delimited by quotation marks.<ul>
-<li>This means we should be able to get the individual characters or sub-sequences</li>
-<li>Which in turn means, we can perform operations on the characters or sub-sequences</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Indexing">Indexing<a class="anchor-link" href="#Indexing">&#182;</a></h1><ul>
-<li>Individual characters in strings can be identified using an index.</li>
-<li>This is done by adding square brackets to the end of a string (value or variable)</li>
-<li>Indexes start from 0 (It's a computer science thing.)</li>
-</ul>
-<p><img src="images/string_indexes.png" alt=""></p>
 <ul>
-<li>We can get a copy of a character from a string</li>
+<li>Search moves through the string from start to end, stopping at the first match found</li>
+<li>All of the pattern must match</li>
 </ul>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># This should be H</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[63]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;H&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">opening</span> <span class="o">=</span> <span class="s">&quot;Hello, I wish to register a complaint.&quot;</span>
-<span class="n">opening</span><span class="p">[</span><span class="mi">37</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[67]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;.&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="nb">len</span><span class="p">(</span><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[65]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>38</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="mi">37</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[66]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;.&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Negative-Indexes">Negative Indexes<a class="anchor-link" href="#Negative-Indexes">&#182;</a></h1><ul>
-<li>We can use negative indexes to access the characters starting at the end of a string<ul>
-<li>Easier than figuring out the index of the last character</li>
-</ul>
-</li>
+<h1 id="Grouping-with-Parentheses">Grouping with Parentheses<a class="anchor-link" href="#Grouping-with-Parentheses">&#182;</a></h1><ul>
+<li>Parentheses are used to groups parts of expression</li>
+<li>Groups can be retrieve parts of the match</li>
 </ul>
 
 </div>
@@ -494,134 +645,16 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c"># This should be .</span>
-</pre></div>
+<div class=" highlight hl-ipython2"><pre><span class="n">phone_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(\d\d\d)-(\d\d\d-\d\d\d\d)&#39;</span><span class="p">)</span>
+<span class="n">phone_match</span> <span class="o">=</span> <span class="n">phone_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;My number is 415-555-4242.&#39;</span><span class="p">)</span>
 
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[68]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;.&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="o">-</span><span class="mi">15</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[70]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;e&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">opening</span> <span class="o">=</span> <span class="s">&quot;Hello, I wish to register a complaint.&quot;</span>
-<span class="n">opening</span><span class="p">[</span><span class="o">-</span><span class="mi">38</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;H&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="IndexError-Exceptions">IndexError Exceptions<a class="anchor-link" href="#IndexError-Exceptions">&#182;</a></h1><ul>
-<li>An <code>IndexError</code> exception is <em>thrown</em> when you use an array index is out of range</li>
-</ul>
-<h1 id="Exceptions">Exceptions<a class="anchor-link" href="#Exceptions">&#182;</a></h1><ul>
-<li><p>An Exception is an object or data structure that is passed back to a calling context when there is a problem</p>
-<ul>
-<li>Not meant to be used in normal operation</li>
-</ul>
-</li>
-<li><p>If you don't want an exception to cause your program to crash, you can handle them in your code using try/except blocks</p>
-</li>
-</ul>
-
-<pre><code>try:
-    statement
-    statement
-except ExceptionName:
-    statement
-    statement</code></pre>
-<p>Inside the try block are the statement that might throw an exception.</p>
-<p>The statements in the except block are run when an exception of type <em>ExceptionName</em> is thrown by the try block.</p>
-<p>We'll come back to this later in the course.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">opening</span> <span class="o">=</span> <span class="s">&quot;Hello, I wish to register a complaint.&quot;</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">opening</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span>
-<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Index out of range for string&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -634,7 +667,10 @@ except ExceptionName:
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Index out of range for string
+<pre>415-555-4242
+415-555-4242
+415
+555-4242
 </pre>
 </div>
 </div>
@@ -642,224 +678,13 @@ except ExceptionName:
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">user_input</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;&gt; &quot;</span><span class="p">)</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">user_input</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
-<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Can&#39;t do it. Not a number&quot;</span><span class="p">)</span>
-
-
-<span class="c">#user_input += 1</span>
-<span class="c">#print(user_input)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&gt; string
-Can&apos;t do it. Not a number
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Iterating-Over-a-String">Iterating Over a String<a class="anchor-link" href="#Iterating-Over-a-String">&#182;</a></h1><ul>
-<li>To access every character in a string, we can use a loop</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Monty&quot;</span>
-<span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>M
-o
-n
-t
-y
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[81]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">name</span> <span class="o">=</span><span class="s">&quot;Monty&quot;</span>
-<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>M
-o
-n
-t
-y
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">name</span> <span class="o">=</span><span class="s">&quot;Monty&quot;</span>
-<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-    <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="String-Slicing">String Slicing<a class="anchor-link" href="#String-Slicing">&#182;</a></h1><ul>
-<li>A slice is a span of items that are taken from a sequence.</li>
-<li>A slicing expression can be used to select a range of characters from a string.</li>
-<li>General format of a string slice:
-<pre><code>  string[ start : end : step]</code></pre>
-</li>
-</ul>
-<p>This is similar to the range function from last week.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[86]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;iht e&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Testing,-Searching,-and-Manipulating-Strings">Testing, Searching, and Manipulating Strings<a class="anchor-link" href="#Testing,-Searching,-and-Manipulating-Strings">&#182;</a></h1><ul>
-<li>Python provides a number of operators and methods for testing strings, searching the contents of strings, and getting modified copies of strings.</li>
-</ul>
-<h2 id="Testing-with-in-and-not-in">Testing with <code>in</code> and <code>not in</code><a class="anchor-link" href="#Testing-with-in-and-not-in">&#182;</a></h2><ul>
-<li>Evaluates to a Boolean</li>
-<li>General formats</li>
-</ul>
-
-<pre><code>string1 in string2
-
-string1 not in string2</code></pre>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">knights</span> <span class="o">=</span> <span class="s">&quot;Arthur Lancelot Robin Bedevere Galahad&quot;</span>
-
-<span class="k">if</span> <span class="s">&quot;Arthur&quot;</span> <span class="ow">in</span> <span class="n">knights</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Arthur is a knight&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Arthur is not a knight&quot;</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="s">&quot;Graham&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">knights</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Graham is not a knight&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Graham is a knight&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="k">print</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -872,8 +697,38 @@ string1 not in string2</code></pre>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Arthur is a knight
-Graham is not a knight
+<pre>(&apos;415&apos;, &apos;555-4242&apos;)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">area_code</span><span class="p">,</span> <span class="n">main_number</span> <span class="o">=</span> <span class="n">phone_match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">area_code</span>
+<span class="k">print</span> <span class="n">main_number</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>415
+555-4242
 </pre>
 </div>
 </div>
@@ -887,14 +742,12 @@ Graham is not a knight
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="String-Methods">String Methods<a class="anchor-link" href="#String-Methods">&#182;</a></h1><ul>
-<li>A method is a function that belongs to an object. (Strings are objects.)</li>
-<li>General form</li>
+<h1 id="Special-Operators">Special Operators<a class="anchor-link" href="#Special-Operators">&#182;</a></h1><ul>
+<li>^ = start, $ = end -- match the start or end of the string</li>
+<li>\ -- inhibit the "specialness" of a character. So, for example, use . to match a period or \ to match a slash. If you are unsure if a character has special meaning, such as '@', you can put a slash in front of it, \@, to make sure it is treated just as a character.</li>
+<li>| (pipe, on slash key) --alternation, for combinining patterns</li>
+<li>? --optional matching</li>
 </ul>
-
-<pre><code>   string.method(arguments)</code></pre>
-<p>There are <em>a lot</em> of useful string methods. You'll learn them over time. Here are a few to get you started.</p>
-<p><img src="images/string_testing.png" alt=""></p>
 
 </div>
 </div>
@@ -904,7 +757,12 @@ Graham is not a knight
 <div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">cheese_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^Cheese&#39;</span><span class="p">)</span>
+<span class="n">cheese_match</span> <span class="o">=</span> <span class="n">cheese_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Cheese Shop sketch&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">cheese_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+<span class="n">cheese_match</span> <span class="o">=</span> <span class="n">cheese_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Not much of a Cheese Shop really, is it?&#39;</span><span class="p">)</span>
+<span class="n">cheese_match</span> <span class="o">==</span> <span class="bp">None</span>
 </pre></div>
 
 </div>
@@ -914,145 +772,19 @@ Graham is not a knight
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Cheese
+</pre>
+</div>
+</div>
 
 <div class="output_area"><div class="prompt output_prompt">Out[91]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>False</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># Write a function to check that a password is strong enough</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="images/string_modification.png" alt=""></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[93]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;HELLO, I WISH TO REGISTER A COMPLAINT.&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Strings-are-Immutable">Strings are Immutable<a class="anchor-link" href="#Strings-are-Immutable">&#182;</a></h1><ul>
-<li>A data structure that is immutable cannot be changed after it is created.</li>
-</ul>
-<p><em>Wait, what?</em></p>
-<p>Yes, all those strings that we were concatenating or appending were busy making copies.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">knights</span> <span class="o">=</span> <span class="s">&quot;Lancelot&quot;</span>
-<span class="n">knights</span> <span class="o">+=</span> <span class="s">&quot; Robin&quot;</span>
-<span class="n">knights</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="images/string_search.png" alt=""></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&quot;wish&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[94]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>9</pre>
+<pre>True</pre>
 </div>
 
 </div>
@@ -1066,7 +798,13 @@ Graham is not a knight
 <div class="prompt input_prompt">In&nbsp;[97]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">monty_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&quot;Terry|Michael|Graham|John|Eric&quot;</span><span class="p">)</span>
+<span class="n">monty_match</span> <span class="o">=</span> <span class="n">monty_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;Eric Palin, John Cleese, and Eric Idle&quot;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">monty_match</span><span class="o">.</span><span class="n">group</span><span class="p">(),</span> <span class="s">&quot;at&quot;</span> <span class="p">,</span> <span class="n">monty_match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">monty_match</span> <span class="o">=</span> <span class="n">monty_regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&quot;Eric Palin, John Cleese, and Eric Idle&quot;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">monty_match</span>
 </pre></div>
 
 </div>
@@ -1077,66 +815,26 @@ Graham is not a knight
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[97]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;wish&apos;</pre>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Eric at 0
+[&apos;Eric&apos;, &apos;John&apos;, &apos;Eric&apos;]
+</pre>
 </div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="s">&quot;Hello, I wish to register a complaint.&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;wish&quot;</span><span class="p">,</span> <span class="s">&quot;demand&quot;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[99]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;Hello, I demand to register a complaint.&apos;</pre>
-</div>
-
 </div>
 
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Splitting-a-String">Splitting a String<a class="anchor-link" href="#Splitting-a-String">&#182;</a></h2>
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[100]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">knight_string</span> <span class="o">=</span> <span class="s">&quot;Arthur Lancelot Robin Bedevere Galahad&quot;</span>
-<span class="n">knight_list</span> <span class="o">=</span> <span class="n">knight_string</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-<span class="n">knight_list</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">parrot_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;Parrot(man|mobile|copter|bat)&#39;</span><span class="p">)</span>
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;Parrotcopter lost a blade&#39;</span><span class="p">)</span>
+<span class="n">parrot_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1151,7 +849,7 @@ Graham is not a knight
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&apos;Arthur&apos;, &apos;Lancelot&apos;, &apos;Robin&apos;, &apos;Bedevere&apos;, &apos;Galahad&apos;]</pre>
+<pre>&apos;Parrotcopter&apos;</pre>
 </div>
 
 </div>
@@ -1159,14 +857,66 @@ Graham is not a knight
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">parrot_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;Parrot(wo)?man&#39;</span><span class="p">)</span>
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotman&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parrot_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotwoman&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parrot_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Parrotman
+Parrotwoman
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Wildcard-Characters">Wildcard Characters<a class="anchor-link" href="#Wildcard-Characters">&#182;</a></h1><ul>
+<li>. (a period) -- matches any single character except newline '\n'</li>
+<li>* (asterisk) -- match zero or more, or optional</li>
+<li>+ -- match one or more</li>
+</ul>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">date_string</span> <span class="o">=</span> <span class="s">&quot;15/10/2015&quot;</span>
-<span class="n">date_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">parrot_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;Parrot(wo)*man&#39;</span><span class="p">)</span>
+
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotman&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parrot_matches</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotwowowoman&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parrot_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1177,11 +927,52 @@ Graham is not a knight
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[102]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Parrotmobile
+Parrotwowowoman
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">parrot_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;Parrot(wo)+man&#39;</span><span class="p">)</span>
+
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotwoman&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parrot_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+
+<span class="n">parrot_match</span> <span class="o">=</span> <span class="n">parrot_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;The Adventures of Parrotman&#39;</span><span class="p">)</span>
+<span class="n">parrot_match</span> <span class="o">==</span> <span class="bp">None</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Parrotwoman
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[103]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&apos;15&apos;, &apos;10&apos;, &apos;2015&apos;]</pre>
+<pre>True</pre>
 </div>
 
 </div>
@@ -1189,74 +980,17 @@ Graham is not a knight
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Functions">Functions<a class="anchor-link" href="#Functions">&#182;</a></h1><ul>
-<li>A function is a way to group together lines of code.</li>
-<li>Useful for doing the same task in different places.</li>
-<li>Makes the code easier to read.</li>
-<li>Avoids repeating code.</li>
-</ul>
-
-<pre><code>def function_name():
-    statement
-    statement
-    statement</code></pre>
-<ul>
-<li>A function has the following parts.<ul>
-<li>A name</li>
-<li>Parameters (inputs)</li>
-<li>Optionally, return values (outputs)</li>
-</ul>
-</li>
-</ul>
-<p>Functions are either a <em>void function</em> or a <em>value-returning function</em>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Defining-and-Calling-a-Void-Function">Defining and Calling a Void Function<a class="anchor-link" href="#Defining-and-Calling-a-Void-Function">&#182;</a></h1><ul>
-<li>The code for a function is known as a function definition.</li>
-<li><p>To cause a function to run, you write a statement that calls it.</p>
-</li>
-<li><p>General form for definition</p>
-
-<pre><code>def function_name():
-  statement
-  statement</code></pre>
-</li>
-<li><p>General form for call</p>
-</li>
-</ul>
-
-<pre><code>function_name()</code></pre>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[104]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># This program demonstrates a function</span>
-<span class="c"># First we define a function named &quot;message&quot;</span>
+<div class=" highlight hl-ipython2"><pre><span class="c"># Match everything with .*</span>
 
-<span class="k">def</span> <span class="nf">message</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am Arthur&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;King of the Britons&quot;</span><span class="p">)</span>
-
-<span class="c"># Call the message function</span>
-<span class="n">message</span><span class="p">()</span>
+<span class="n">name_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;First Name: (.*) Last Name: (.*)&#39;</span><span class="p">)</span>
+<span class="n">name_match</span> <span class="o">=</span> <span class="n">name_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&quot;First Name: Tarquin Last Name: Fin-tim-lim-bim-whin-bim-lim-bus-stop-F&#39;tang-F&#39;tang-Ole-Biscuitbarrel&quot;</span><span class="p">)</span>
+<span class="n">name_match</span><span class="o">.</span><span class="n">groups</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1267,12 +1001,14 @@ Graham is not a knight
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>I am Arthur
-King of the Britons
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[104]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&apos;Tarquin&apos;,
+ &quot;Fin-tim-lim-bim-whin-bim-lim-bus-stop-F&apos;tang-F&apos;tang-Ole-Biscuitbarrel&quot;)</pre>
 </div>
+
 </div>
 
 </div>
@@ -1284,94 +1020,7 @@ King of the Britons
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Function-Names">Function Names<a class="anchor-link" href="#Function-Names">&#182;</a></h2><ul>
-<li>Not a Python keyword</li>
-<li>No spaces</li>
-<li>First character must be uppercase letter, lowercase letter, or underscore (_)</li>
-<li>Subsequent characters can be the above, plus digits 0-9</li>
-<li>Case sensitive</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Functions-Calling-Functions">Functions Calling Functions<a class="anchor-link" href="#Functions-Calling-Functions">&#182;</a></h2><p>See the <a href="http://www.pythontutor.com/visualize.html#code=def+wrapped_message(%29%3A%0A++++print(%22I+have+a+message+for+you%22%29%0A++++message(%29%0A++++print(%22Good+bye!%22%29%0A%0Adef+message(%29%3A%0A++++print(%22I+am+Arthur%22%29%0A++++print+(%22King+of+the+Britons%22%29%0A%0Awrapped_message(%29&mode=display&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=2&rawInputLstJSON=%5B%5D&curInstr=0">visualization</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[105]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">wrapped_message</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I have a message for you&quot;</span><span class="p">)</span>
-    <span class="n">message</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Good bye!&quot;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">message</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;I am Arthur&quot;</span><span class="p">)</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;King of the Britons&quot;</span><span class="p">)</span>
-
-<span class="n">wrapped_message</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>I have a message for you
-I am Arthur
-King of the Britons
-Good bye!
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Indentation">Indentation<a class="anchor-link" href="#Indentation">&#182;</a></h2><ul>
-<li>In Python, indentation is used to indicate blocks</li>
-<li>Blocks are lines of code that execute as a group.</li>
-<li>Blocks are contexts.</li>
-<li>Python best practice is to indent using 4 spaces</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Local-Variables">Local Variables<a class="anchor-link" href="#Local-Variables">&#182;</a></h1><ul>
-<li>Variables have scope, or visibility to other parts of the program.</li>
-<li>We have mostly been using the top level or <em>global</em> scope.</li>
-<li>Functions are a new scope.</li>
-<li>A <em>local variable</em> is a variable that has been created inside a function. It is not visible outside the function.</li>
-<li>Functions cannot see each other's local variables.</li>
-</ul>
-<p>The visibility or scope of a variable is what allows us to have variables that have the same name, but point to different data in different contexts.</p>
+<h1 id="Matching-Specific-Repetitions">Matching Specific Repetitions<a class="anchor-link" href="#Matching-Specific-Repetitions">&#182;</a></h1><p>Another way of writing <code>(Ha)(Ha)(Ha)</code> is <code>(Ha){3}</code></p>
 
 </div>
 </div>
@@ -1381,21 +1030,9 @@ Good bye!
 <div class="prompt input_prompt">In&nbsp;[107]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">blue_jays</span><span class="p">():</span>
-    <span class="n">runs</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;The Blue Jays scored {0} runs&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
-    <span class="n">rangers</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">rangers</span><span class="p">():</span>
-    <span class="n">runs</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;The Rangers scored &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot; runs&quot;</span><span class="p">)</span>
-
-<span class="n">runs</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="k">print</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
-<span class="n">blue_jays</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">ha_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(Ha){3}&#39;</span><span class="p">)</span>
+<span class="n">ha_match</span> <span class="o">=</span> <span class="n">ha_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;HaHaHa&#39;</span><span class="p">)</span>
+<span class="n">ha_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1406,15 +1043,13 @@ Good bye!
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>9
-The Blue Jays scored 6 runs
-The Rangers scored 3 runs
-9
-9
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[107]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&apos;HaHaHa&apos;</pre>
 </div>
+
 </div>
 
 </div>
@@ -1426,11 +1061,17 @@ The Rangers scored 3 runs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Passing-Data-to-Functions">Passing Data to Functions<a class="anchor-link" href="#Passing-Data-to-Functions">&#182;</a></h1><ul>
-<li>An <em>argument</em> is data passed in to a function when it is called.</li>
-<li>A <em>parameter</em> is a variable that receives the data. It is named when the code is written.</li>
+<p><code>(Ha){3}</code> means exactly 3 repetitions
+<code>(Ha){,5}</code> means up to 5 repetitions
+<code>(Ha){3,5}</code> means 3 to 5 repetitions</p>
+<ul>
+<li>Python regular matching is greedy by default.<ul>
+<li>It takes the first match and makes it as long as possible.</li>
+<li>In ambiguous situations, the longest string possible is matched.</li>
 </ul>
-<p>See <a href="http://www.pythontutor.com/visualize.html#code=def+greet(name%29%3A%0A++++print(%22Hello+%25s!%22%29+%25+name%0A%0Aknight+%3D+%22Sir+Bedevere%22%0Agreet(knight%29&mode=display&origin=opt-frontend.js&cumulative=false&heapPrimitives=false&textReferences=false&py=2&rawInputLstJSON=%5B%5D&curInstr=6">Online Python Tutor visualization</a></p>
+</li>
+<li>To suppress this use a ? (question mark) after the pattern</li>
+</ul>
 
 </div>
 </div>
@@ -1440,13 +1081,13 @@ The Rangers scored 3 runs
 <div class="prompt input_prompt">In&nbsp;[108]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="c"># This printing style is legal in Python 2, but</span>
-    <span class="c"># discouraged in Python 3</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Hello </span><span class="si">%s</span><span class="s">!&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="n">name</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">greedy_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(Ha){3,5}&#39;</span><span class="p">)</span>
+<span class="n">greedy_match</span> <span class="o">=</span> <span class="n">greedy_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;HaHaHaHaHa&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">greedy_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 
-<span class="n">knight</span> <span class="o">=</span> <span class="s">&quot;Sir Bedevere&quot;</span>
-<span class="n">greet</span><span class="p">(</span><span class="n">knight</span><span class="p">)</span>
+<span class="n">nongreedy_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(Ha){3,5}?&#39;</span><span class="p">)</span>
+<span class="n">nongreedy_match</span> <span class="o">=</span> <span class="n">nongreedy_regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;HaHaHaHaHa&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">nongreedy_match</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -1459,7 +1100,8 @@ The Rangers scored 3 runs
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Hello Sir Bedevere!
+<pre>HaHaHaHaHa
+HaHaHa
 </pre>
 </div>
 </div>
@@ -1473,8 +1115,55 @@ The Rangers scored 3 runs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Passing-Multiple-Arguments">Passing Multiple Arguments<a class="anchor-link" href="#Passing-Multiple-Arguments">&#182;</a></h1><ul>
-<li>Arguments must be passed into functions in the same order as the parameters in the function definition.</li>
+<h1 id="Character-Classes">Character Classes<a class="anchor-link" href="#Character-Classes">&#182;</a></h1><p>Another way of writing <code>(0|1|2|3|4|5|6|7|8|9)</code> is <code>\d</code>, which is a shorthand character class.</p>
+<p><img src="images/character_classes.png" width=600></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[109]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">gbs_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;\d+\s\w+&#39;</span><span class="p">)</span>
+<span class="n">gbs_regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&quot;12 apostles, 11 went straight to heaven, </span><span class="se">\\</span>
+                 <span class="mi">10</span> <span class="n">commandments</span><span class="p">,</span> <span class="mi">9</span> <span class="n">bright</span> <span class="n">eyed</span> <span class="n">shiners</span><span class="p">,</span> \\
+                 <span class="mi">8</span> <span class="n">Gabriel</span> <span class="n">angels</span><span class="s">&quot;)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[109]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;12 apostles&apos;, &apos;11 went&apos;, &apos;10 commandments&apos;, &apos;9 bright&apos;, &apos;8 Gabriel&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Custom-Character-Classes">Custom Character Classes<a class="anchor-link" href="#Custom-Character-Classes">&#182;</a></h2><ul>
+<li>Use square brackets</li>
+<li>Use a caret (^) to negate<ul>
+<li>It's on the 6 key</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -1485,10 +1174,8 @@ The Rangers scored 3 runs
 <div class="prompt input_prompt">In&nbsp;[110]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">outrank</span><span class="p">(</span><span class="n">knight1</span><span class="p">,</span> <span class="n">knight2</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">knight1</span> <span class="o">+</span> <span class="s">&quot; outranks &quot;</span> <span class="o">+</span> <span class="n">knight2</span><span class="p">)</span>
-
-<span class="n">outrank</span><span class="p">(</span><span class="s">&quot;Arthur&quot;</span><span class="p">,</span> <span class="s">&quot;Galahad&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">vowel_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;[aeiouAEIOU]&#39;</span><span class="p">)</span>
+<span class="n">vowel_regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;This is a dead parrot. DEAD.&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1499,11 +1186,13 @@ The Rangers scored 3 runs
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Galahad outranks Arthur
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[110]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;i&apos;, &apos;i&apos;, &apos;a&apos;, &apos;e&apos;, &apos;a&apos;, &apos;a&apos;, &apos;o&apos;, &apos;E&apos;, &apos;A&apos;]</pre>
 </div>
+
 </div>
 
 </div>
@@ -1515,12 +1204,13 @@ The Rangers scored 3 runs
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Making-Changes-to-Parameters">Making Changes to Parameters<a class="anchor-link" href="#Making-Changes-to-Parameters">&#182;</a></h1><ul>
-<li>Python is a "call by value" language, which means the value is passed into functions</li>
-</ul>
-<h3 id="Aside">Aside<a class="anchor-link" href="#Aside">&#182;</a></h3><ul>
-<li>The alternative is "call by reference", which means a pointer to the data structure is passed into functions.</li>
-<li>C/C++ is a call by reference language.</li>
+<h1 id="Compilation-Flags">Compilation Flags<a class="anchor-link" href="#Compilation-Flags">&#182;</a></h1><ul>
+<li>DOTALL, S    --Make . match any character, including newlines</li>
+<li>IGNORECASE, I    --Do case-insensitive matches</li>
+<li>LOCALE, L    --Do a locale-aware match</li>
+<li>MULTILINE, M    --Multi-line matching, affecting ^ and $</li>
+<li>VERBOSE, X    --Enable verbose REs, which can be organized more cleanly and understandably.</li>
+<li>UNICODE, U    --Makes several escapes like \w, \b, \s and \d dependent on the Unicode character database.</li>
 </ul>
 
 </div>
@@ -1531,15 +1221,8 @@ The Rangers scored 3 runs
 <div class="prompt input_prompt">In&nbsp;[111]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">change_me</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;change_me() is changing the value&quot;</span><span class="p">)</span>
-    <span class="n">arg</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Now the value is {0}&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-
-<span class="n">value</span> <span class="o">=</span> <span class="s">&quot;Lancelot&quot;</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;The value is &quot;</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
-<span class="n">change_me</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&quot;Back in main the value is &quot;</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span class="n">vowel_regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;[aeiou]&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+<span class="n">vowel_regex</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;This is a dead parrot. DEAD.&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1550,16 +1233,29 @@ The Rangers scored 3 runs
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The value is Lancelot
-change_me() is changing the value
-Now the value is 0
-Back in main the value is Lancelot
-</pre>
+<div class="output_area"><div class="prompt output_prompt">Out[111]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;i&apos;, &apos;i&apos;, &apos;a&apos;, &apos;e&apos;, &apos;a&apos;, &apos;a&apos;, &apos;o&apos;, &apos;E&apos;, &apos;A&apos;]</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="c"># Exercise</span>
+<span class="c"># Joke: What do you call a pig with three eyes? Piiig!</span>
+</pre></div>
+
+</div>
 </div>
 </div>
 
@@ -1569,60 +1265,30 @@ Back in main the value is Lancelot
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Value-Returning-Functions">Value-Returning Functions<a class="anchor-link" href="#Value-Returning-Functions">&#182;</a></h1><ul>
-<li>Pass data back to the calling context</li>
-<li>Uses the <em>return</em> keyword</li>
-<li>Can return a single value</li>
-<li>Can return multiple values using a data structure, e.g. list, tuple, or dictionary</li>
+<h1 id="Why-don't-we-use-regex-instead-of-string-matching-all-the-time?">Why don't we use regex instead of string matching all the time?<a class="anchor-link" href="#Why-don't-we-use-regex-instead-of-string-matching-all-the-time?">&#182;</a></h1><ul>
+<li>It's more computationally expensive</li>
+<li>If you're doing something simple, stick with strings</li>
+<li>If you can't do it any other way, use regex</li>
 </ul>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">holy_hand_grenade</span><span class="p">(</span><span class="n">tick</span><span class="p">):</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-    
-    <span class="k">if</span> <span class="n">tick</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Keepest going&quot;</span>
-    <span class="k">elif</span> <span class="n">tick</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Nor either count thou two, excepting that thou then proceed to three&quot;</span>
-    <span class="k">elif</span> <span class="n">tick</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Lobbest thou thy Holy Hand Grenade of Antioch towards thou foe&quot;</span>
-    <span class="k">elif</span> <span class="n">tick</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Four shalt thou not count&quot;</span>
-    <span class="k">elif</span> <span class="n">tick</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Five is right out&quot;</span>
-    
-    <span class="k">return</span> <span class="n">output</span>
-
-<span class="n">instruction</span> <span class="o">=</span> <span class="n">holy_hand_grenade</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="k">print</span><span class="p">(</span><span class="n">instruction</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="The-Answer-Game">The Answer Game<a class="anchor-link" href="#The-Answer-Game">&#182;</a></h1><p>Two roles: person asking the question (Q) and the person answering the question (A)</p>
+<ul>
+<li>Q takes question to A</li>
+<li>If A can answer it, A keeps the piece of paper</li>
+<li>Q takes next question to another A, repeat until all questions are answered</li>
+</ul>
+<p>If you ask a question 3 times and can't get an answer, bring it to me.</p>
 
 </div>
 </div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>st th
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -1630,70 +1296,6 @@ Back in main the value is Lancelot
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Let's-Practice">Let's Practice<a class="anchor-link" href="#Let's-Practice">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># Turn this code into a function</span>
-
-<span class="k">def</span> <span class="nf">what_to_wear</span><span class="p">(</span><span class="n">temperature</span><span class="p">):</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-    
-    <span class="k">if</span> <span class="p">(</span><span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">15</span><span class="p">):</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="s">&quot;Wear a coat.&quot;</span>
-    
-    <span class="k">return</span> <span class="n">output</span>
-
-<span class="n">what_to_wear</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-    
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[120]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&apos;Wear a coat.&apos;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="c"># Write a function to sum two values</span>
-
-<span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span> <span class="n">number2</span><span class="p">):</span>
 </pre></div>
 
 </div>
